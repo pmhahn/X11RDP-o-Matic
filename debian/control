@@ -1,0 +1,71 @@
+Source: xrdp
+Section: unknown
+Maintainer: Univention GmbH <packages@univention.de>
+Standards-Version: 3.5.5
+Build-Depends:
+ debhelper (>= 8),
+ fakeroot,
+ automake,
+ automake1.9,
+ bison,
+ checkinstall,
+ curl,
+ dh-make,
+ dialog,
+ flex,
+ gettext,
+ git,
+ git-core,
+ intltool,
+ libavcodec-dev,
+ libavformat-dev,
+ libdrm-dev,
+ libfuse-dev,
+ libgl1-mesa-dev,
+ libjpeg8-dev,
+ libpam0g-dev,
+ libpciaccess-dev,
+ libpixman-1-dev,
+ libpulse-dev,
+ libssl-dev,
+ libtool,
+ libx11-dev,
+ libxfixes-dev,
+ libxfont-dev,
+ libxkbfile-dev,
+ libxml2-dev,
+ libxrandr-dev,
+ lsb-release,
+ nasm,
+ pkg-config,
+ python-libxml2,
+ wget,
+ xfonts-utils,
+ xorg-dev,
+ xsltproc,
+ xutils,
+ xutils-dev,
+ zlib1g-dev,
+ libfreerdp-dev, freerdp-x11,
+
+Package: x11rdp
+Priority: optional
+Architecture: any
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+Description: X11rdp backend for the xrdp remote access server
+
+Package: xrdp
+Priority: optional
+Architecture: any
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+Description: Remote Desktop Protocol (RDP) server
+ Based on research work by the rdesktop project, xrdp uses the Remote
+ Desktop Protocol to present a graphical login to a remote client.
+ xrdp can connect to a VNC server or another RDP server.
+ .
+ Microsoft Windows users can connect to a system running xrdp without
+ installing additional software.

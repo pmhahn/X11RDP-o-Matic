@@ -1,0 +1,23 @@
+From: Philipp Hahn <hahn@univention.de>
+Date: Tue, 7 Jul 2015 08:56:44 +0200
+Subject: Fix homepage location
+Organization: Univention GmbH, Bremen, Germany
+
+sourceforge is dead, long lives github.
+---
+ xrdp_control | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/xrdp_control b/xrdp_control
+index 8bfdb12..7f52b95 100644
+--- a/xrdp_control
++++ b/xrdp_control
+@@ -4,7 +4,7 @@ Priority: optional
+ Maintainer: System Maintainer <root@your-system>
+ Build-Depends: debhelper (>= 8.0.0), autotools-dev
+ Standards-Version: 3.9.4
+-Homepage: http://sourceforge.net/projects/xrdp/
++Homepage: https://github.com/neutrinolabs/xrdp
+ 
+ Package: xrdp
+ Architecture: any

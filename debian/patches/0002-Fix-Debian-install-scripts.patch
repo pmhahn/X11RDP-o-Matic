@@ -1,0 +1,56 @@
+From: Philipp Hahn <hahn@univention.de>
+Date: Tue, 7 Jul 2015 08:56:44 +0200
+Subject: Fix Debian install scripts
+Organization: Univention GmbH, Bremen, Germany
+
+On upgrades, the following sequence is performed:
+	old.prerm upgrade
+	new.preinst upgrade
+	old.postrm upgrade
+	new.postinst configure
+
+Only remove the init.d links when removing or purging the packages.
+---
+ xrdp_postinst | 14 +++++++++-----
+ xrdp_prerm    | 10 +++++++---
+ 2 files changed, 16 insertions(+), 8 deletions(-)
+
+diff --git a/xrdp_postinst b/xrdp_postinst
+index db7374d..ac6d641 100644
+--- a/xrdp_postinst
++++ b/xrdp_postinst
+@@ -1,7 +1,11 @@
+ #!/bin/sh
+ 
+-# create the rc.d calls for startup/shutdown...
+-update-rc.d xrdp defaults
+-# Crank the engine ;)
+-/etc/init.d/xrdp start
+-exit 0
+\ No newline at end of file
++case "$1" in
++configure)
++	# create the rc.d calls for startup/shutdown...
++	update-rc.d xrdp defaults
++	# Crank the engine ;)
++	invoke-rc.d xrdp start
++	;;
++esac
++exit 0
+diff --git a/xrdp_prerm b/xrdp_prerm
+index ccc326d..da94b04 100644
+--- a/xrdp_prerm
++++ b/xrdp_prerm
+@@ -1,4 +1,8 @@
+ #!/bin/sh
+-/etc/init.d/xrdp stop
+-update-rc.d xrdp remove
+-exit 0
+\ No newline at end of file
++case "$1" in
++remove|purge)
++	invoke-rc.d xrdp stop
++	update-rc.d xrdp remove
++	;;
++esac
++exit 0

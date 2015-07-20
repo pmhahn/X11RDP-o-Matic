@@ -1,0 +1,19 @@
+I used the following command to generate the source:
+
+`````
+VER='0.8.1'
+
+git clone https://github.com/pmhahn/X11RDP-o-Matic.git xrdp-$VER
+cd xrdp-$VER
+gbp-pq export
+quilt pop -a
+cd ..
+tar -c --exclude=.git --exclude=debian --exclude=xrdp -v -J -f xrdp_$VER.orig.tar.xz xrdp-$VER/*
+
+git clone git@github.com:pmhahn/xrdp.git xrdp
+tar -c -J --exclude=.git --exclude=\*.patch -v -f xrdp_$VER.orig-xrdp.tar.xz xrdp/*
+
+wget -O xrdp_$VER.orig-libjpeg-turbo.tar.gz 'http://sourceforge.net/projects/libjpeg-turbo/files/1.3.1/libjpeg-turbo-1.3.1.tar.gz/download' # http://pkgs.fedoraproject.org/repo/pkgs/libjpeg-turbo/libjpeg-turbo-1.3.1.tar.gz/2c3a68129dac443a72815ff5bb374b05/libjpeg-turbo-1.3.1.tar.gz
+`````
+
+vim:set ft=markdown:

@@ -1,0 +1,32 @@
+From: Philipp Hahn <hahn@univention.de>
+Date: Wed, 15 Jul 2015 17:53:59 +0200
+Subject: Skip downloading libjpeg-turbo-1.3.1.tar.gz twice
+Organization: Univention GmbH, Bremen, Germany
+
+Don't download the file again if it already exists.
+---
+ X11rdp-o-matic.sh | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/X11rdp-o-matic.sh b/X11rdp-o-matic.sh
+index b3ef7ec..579ffba 100755
+--- a/X11rdp-o-matic.sh
++++ b/X11rdp-o-matic.sh
+@@ -863,13 +863,16 @@ download_and_extract_libturbojpeg()
+ {
+   cd "$WORKINGDIR"
+   echo "TurboJPEG library needs to be built and installed to /opt... downloading and extracting source..."
++  [ -d libjpeg-turbo ] && return 0
++  [ -s libjpeg-turbo-1.3.1.tar.gz ] ||
+   curl -O -J -L http://sourceforge.net/projects/libjpeg-turbo/files/1.3.1/libjpeg-turbo-1.3.1.tar.gz/download#
+   tar xf libjpeg-turbo-1.3.1.tar.gz
++  ln -s libjpeg-turbo-1.3.1 libjpeg-turbo
+ }
+ 
+ build_turbojpeg()
+ {
+-  cd "$WORKINGDIR/libjpeg-turbo-1.3.1"
++  cd "$WORKINGDIR/libjpeg-turbo"
+   echo "Configuring Turbo JPEG..."
+   ./configure
+   echo "Building TurboJPEG..."

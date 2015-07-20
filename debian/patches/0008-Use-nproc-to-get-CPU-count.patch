@@ -1,0 +1,22 @@
+From: Philipp Hahn <hahn@univention.de>
+Date: Tue, 7 Jul 2015 09:55:23 +0200
+Subject: Use nproc to get CPU count
+Organization: Univention GmbH, Bremen, Germany
+
+---
+ X11rdp-o-matic.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/X11rdp-o-matic.sh b/X11rdp-o-matic.sh
+index b90b019..2ad97e3 100755
+--- a/X11rdp-o-matic.sh
++++ b/X11rdp-o-matic.sh
+@@ -551,7 +551,7 @@ install_required_packages()
+ 
+ calc_cpu_cores()
+ {
+-  Cores=`grep -c ^processor /proc/cpuinfo`
++  Cores=`nproc`
+   if [ $Cores -gt 1 ]
+   then
+     let "MakesystemWorkHarder = $Cores + 1"

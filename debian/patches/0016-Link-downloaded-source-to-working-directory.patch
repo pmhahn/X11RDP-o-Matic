@@ -1,0 +1,57 @@
+From: Philipp Hahn <hahn@univention.de>
+Date: Wed, 15 Jul 2015 18:03:07 +0200
+Subject: Link downloaded source to working directory
+Organization: Univention GmbH, Bremen, Germany
+
+Link source directory xrdp/ to working directory xrdp-$VERSION/.
+
+This allows to clean up the build environment without loosing the cloned
+GIT repository of xrdp.
+---
+ X11rdp-o-matic.sh | 24 ++++++++++--------------
+ 1 file changed, 10 insertions(+), 14 deletions(-)
+
+diff --git a/X11rdp-o-matic.sh b/X11rdp-o-matic.sh
+index 011979d..c4f7f06 100755
+--- a/X11rdp-o-matic.sh
++++ b/X11rdp-o-matic.sh
+@@ -436,14 +436,12 @@ compile_xrdp_interactive()
+     mkdir -p "$WORKINGDIR/packages/xrdp"
+   fi
+ 
+-  # Step 1: Run the bootstrap and configure scripts
+-  cd "$WORKINGDIR/xrdp"
+-  ( ./bootstrap && ./configure "$CONFIGUREFLAGS[@]}" ) 2>&1 | dialog  --progressbox "Preparing xrdp source to make a Debian package..." 50 100
++  # Step 1: Link xrdp dir to xrdp-$VERSION for dh_make to work on...
++  cp -lr "$WORKINGDIR/xrdp" "$WORKINGDIR/xrdp-$VERSION"
+ 
+-  #Step 2 : Rename xrdp dir to xrdp-$VERSION for dh-make to work on...
+-  cd ..
+-  mv xrdp "xrdp-$VERSION"
+-  cd "xrdp-$VERSION"
++  # Step 2: Run the bootstrap and configure scripts
++  cd "$WORKINGDIR/xrdp-$VERSION"
++  ( ./bootstrap && ./configure "$CONFIGUREFLAGS[@]}" ) 2>&1 | dialog  --progressbox "Preparing xrdp source to make a Debian package..." 50 100
+ 
+   #Step 3 : Use dh-make to create the debian directory package template...
+   ( echo | dh_make --single --native ) 2>&1 | dialog  --progressbox "Preparing xrdp source to make a Debian package..." 50 100
+@@ -479,14 +477,12 @@ compile_xrdp_noninteractive()
+     mkdir -p "$WORKINGDIR/packages/xrdp"
+   fi
+ 
+-  # Step 1: Run the bootstrap and configure scripts
+-  cd "$WORKINGDIR/xrdp"
+-  ./bootstrap && ./configure "${CONFIGUREFLAGS[@]}"
++  # Step 1: Link xrdp dir to xrdp-$VERSION for dh_make to work on...
++  cp -lr "$WORKINGDIR/xrdp" "$WORKINGDIR/xrdp-$VERSION"
+ 
+-  #Step 2 : Rename xrdp dir to xrdp-$VERSION for dh-make to work on...
+-  cd ..
+-  mv xrdp "xrdp-$VERSION"
+-  cd "xrdp-$VERSION"
++  # Step 2: Run the bootstrap and configure scripts
++  cd "$WORKINGDIR/xrdp-$VERSION"
++  ./bootstrap && ./configure "${CONFIGUREFLAGS[@]}"
+ 
+   #Step 3 : Use dh-make to create the debian directory package template...
+   echo | dh_make --single --native

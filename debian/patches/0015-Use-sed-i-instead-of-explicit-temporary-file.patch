@@ -1,0 +1,24 @@
+From: Philipp Hahn <hahn@univention.de>
+Date: Tue, 7 Jul 2015 12:13:52 +0200
+Subject: Use sed -i instead of explicit temporary file
+Organization: Univention GmbH, Bremen, Germany
+
+---
+ X11rdp-o-matic.sh | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/X11rdp-o-matic.sh b/X11rdp-o-matic.sh
+index 2853f0f..011979d 100755
+--- a/X11rdp-o-matic.sh
++++ b/X11rdp-o-matic.sh
+@@ -677,9 +677,7 @@ alter_xrdp_source()
+   cd "$WORKINGDIR/xrdp"
+   for file in `rgrep "localstatedir\}" . | cut -d":" -f1`
+   do
+-    sed 's/localstatedir\}\/run/localstatedir\}\/run\/xrdp/' < "$file" > "$file.new"
+-    rm "$file"
+-    mv "$file.new" "$file"
++    sed -i 's/localstatedir\}\/run/localstatedir\}\/run\/xrdp/' "$file"
+   done
+   cd "$WORKINGDIR"
+   # Patch Jay's buildx.sh.

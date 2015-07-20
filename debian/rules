@@ -1,0 +1,22 @@
+#!/usr/bin/make -f
+
+VERSION := $(shell dpkg-parsechangelog -c1 | sed -ne 's/^Version: //p')
+DEB_BUILD_ARCH ?= $(shell dpkg-architecture -qDEB_BUILD_ARCH)
+
+X11RDP := x11rdp_${VERSION}_${DEB_BUILD_ARCH}.deb
+XRDP := xrdp_${VERSION}_${DEB_BUILD_ARCH}.deb
+
+%:
+	dh $@
+
+override_dh_auto_clean:
+	$(RM) -r xrdp-0.8*
+	$(RM) -f xrdp_0.8*
+	$(RM) packages
+
+override_dh_auto_build:
+	./X11rdp-o-matic.sh --justdoit --noinstall --branch v0.8 --withjpeg --withturbojpeg --withneutrino --withkerberos --withxrdpvr --withpamuserpass
+	# v9: --withsimplesound --withpulse --withfreerdp
+
+binary:
+	for p in packages/*/*.deb; do ln -f "$$p" ../;dpkg-distaddfile `basename "$$p"` unknown optional;done

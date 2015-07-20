@@ -1,0 +1,5 @@
+xrdp (0.8.1-1) unstable; urgency=low
+
+  * Bug #35885: Provide source code for XRDP.
+
+ -- Philipp Hahn <hahn@univention.de>  Wed, 01 Jul 2015 17:07:10 +0200

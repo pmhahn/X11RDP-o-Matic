@@ -1,0 +1,21 @@
+From: Philipp Hahn <hahn@univention.de>
+Date: Fri, 17 Jul 2015 16:43:02 +0200
+Subject: Add FreeRDP1 build dependencies
+Organization: Univention GmbH, Bremen, Germany
+
+---
+ X11rdp-o-matic.sh | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/X11rdp-o-matic.sh b/X11rdp-o-matic.sh
+index 84b3fe4..798ecaa 100755
+--- a/X11rdp-o-matic.sh
++++ b/X11rdp-o-matic.sh
+@@ -285,6 +285,7 @@ case "$1" in
+     ;;
+     --withfreerdp)
+       CONFIGUREFLAGS+=(--enable-freerdp1)
++      REQUIREDPACKAGES+=(libfreerdp-dev)
+     ;;
+ esac
+ shift

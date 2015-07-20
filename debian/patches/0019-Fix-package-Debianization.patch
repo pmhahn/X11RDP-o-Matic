@@ -1,0 +1,33 @@
+From: Philipp Hahn <hahn@univention.de>
+Date: Fri, 17 Jul 2015 16:52:45 +0200
+Subject: Fix package Debianization
+Organization: Univention GmbH, Bremen, Germany
+
+Build non-native package.
+Specify copyright.
+---
+ X11rdp-o-matic.sh | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/X11rdp-o-matic.sh b/X11rdp-o-matic.sh
+index 579ffba..7c42136 100755
+--- a/X11rdp-o-matic.sh
++++ b/X11rdp-o-matic.sh
+@@ -446,7 +446,7 @@ compile_xrdp_interactive()
+   ( ./bootstrap && ./configure "$CONFIGUREFLAGS[@]}" ) 2>&1 | dialog  --progressbox "Preparing xrdp source to make a Debian package..." 50 100
+ 
+   #Step 3 : Use dh-make to create the debian directory package template...
+-  ( echo | dh_make --single --native ) 2>&1 | dialog  --progressbox "Preparing xrdp source to make a Debian package..." 50 100
++  ( dh_make --single --yes --copyright apache --createorig ) 2>&1 | dialog  --progressbox "Preparing xrdp source to make a Debian package..." 50 100
+ 
+   #Step 4 : edit/configure the debian directory...
+   cd debian
+@@ -487,7 +487,7 @@ compile_xrdp_noninteractive()
+   ./bootstrap && ./configure "${CONFIGUREFLAGS[@]}"
+ 
+   #Step 3 : Use dh-make to create the debian directory package template...
+-  echo | dh_make --single --native
++  dh_make --single --yes --copyright apache --createorig
+ 
+   #Step 4 : edit/configure the debian directory...
+   cd debian

@@ -1,0 +1,22 @@
+From: Philipp Hahn <hahn@univention.de>
+Date: Tue, 7 Jul 2015 09:02:13 +0200
+Subject: Remove double dependency libpam0g-dev
+Organization: Univention GmbH, Bremen, Germany
+
+Already part of the default $REQUIREDPACKAGES
+---
+ X11rdp-o-matic.sh | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/X11rdp-o-matic.sh b/X11rdp-o-matic.sh
+index 99c09d6..a63e5e6 100755
+--- a/X11rdp-o-matic.sh
++++ b/X11rdp-o-matic.sh
+@@ -248,7 +248,6 @@ case "$1" in
+     ;;
+     --withkerberos)
+       CONFIGUREFLAGS=$CONFIGUREFLAGS" --enable-kerberos"
+-      REQUIREDPACKAGES=("${REQUIREDPACKAGES[@]}" "libpam0g-dev")
+     ;;
+     --withxrdpvr)
+       CONFIGUREFLAGS=$CONFIGUREFLAGS" --enable-xrdpvr"

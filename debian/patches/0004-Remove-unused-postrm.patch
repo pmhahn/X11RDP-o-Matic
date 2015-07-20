@@ -1,0 +1,20 @@
+From: Philipp Hahn <hahn@univention.de>
+Date: Tue, 7 Jul 2015 09:03:46 +0200
+Subject: Remove unused postrm
+Organization: Univention GmbH, Bremen, Germany
+
+Does nothing.
+---
+ xrdp_postrm | 2 --
+ 1 file changed, 2 deletions(-)
+ delete mode 100644 xrdp_postrm
+
+diff --git a/xrdp_postrm b/xrdp_postrm
+deleted file mode 100644
+index 03538c0..0000000
+--- a/xrdp_postrm
++++ /dev/null
+@@ -1,2 +0,0 @@
+-#!/bin/sh
+-exit 0
+\ No newline at end of file

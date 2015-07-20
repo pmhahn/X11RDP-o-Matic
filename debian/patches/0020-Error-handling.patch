@@ -1,0 +1,48 @@
+From: Philipp Hahn <hahn@univention.de>
+Date: Fri, 17 Jul 2015 16:03:48 +0200
+Subject: Error handling
+Organization: Univention GmbH, Bremen, Germany
+
+Abort on errors.
+---
+ X11rdp-o-matic.sh | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
+
+diff --git a/X11rdp-o-matic.sh b/X11rdp-o-matic.sh
+index 7c42136..14ef378 100755
+--- a/X11rdp-o-matic.sh
++++ b/X11rdp-o-matic.sh
+@@ -1,4 +1,5 @@
+ #!/bin/bash
++set -e
+ 
+ # Automatic Xrdp/X11rdp Compiler/Installer
+ # a.k.a. ScaryGliders X11rdp-O-Matic
+@@ -807,16 +808,14 @@ remove_existing_generated_packages()
+ {
+   echo "Checking for previously generated packages..."
+   echo $LINE
+-  ls "$WORKINGDIR"/packages/xrdp/X11rdp*.deb >/dev/null 2>&1
+-  if [ $? == 0 ]
++  if ls "$WORKINGDIR"/packages/xrdp/X11rdp*.deb >/dev/null 2>&1
+   then
+     echo "Removing previously generated Debian X11rdp package file(s)."
+     echo $LINE
+     rm "$WORKINGDIR"/packages/Xorg/*.deb
+   fi
+ 
+-  ls "$WORKINGDIR"/packages/xrdp/xrdp*.deb >/dev/null 2>&1
+-  if [ $? == 0 ]
++  if ls "$WORKINGDIR"/packages/xrdp/xrdp*.deb >/dev/null 2>&1
+   then
+     echo "Removing previously generated Debian xrdp package file(s)."
+     echo $LINE
+@@ -1007,7 +1006,7 @@ then
+   # make_doc_directory # <--- Probably not needed anymore since the dh_make
+                        # method includes the doc directory ;)
+   # stop xrdp if running
+-  /etc/init.d/xrdp stop
++  /etc/init.d/xrdp stop || :
+ 
+   install_generated_packages
+ 

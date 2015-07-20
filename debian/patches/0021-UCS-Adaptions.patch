@@ -1,0 +1,41 @@
+From: Philipp Hahn <hahn@univention.de>
+Date: Tue, 7 Jul 2015 08:56:17 +0200
+Subject: UCS Adaptions
+Organization: Univention GmbH, Bremen, Germany
+
+Remove libtool-bin
+Remove check for supported Distributions
+---
+ X11rdp-o-matic.sh | 12 ++----------
+ 1 file changed, 2 insertions(+), 10 deletions(-)
+
+diff --git a/X11rdp-o-matic.sh b/X11rdp-o-matic.sh
+index 14ef378..43cd180 100755
+--- a/X11rdp-o-matic.sh
++++ b/X11rdp-o-matic.sh
+@@ -134,7 +134,7 @@ CONFIGUREFLAGS=(--prefix=/usr --sysconfdir=/etc --localstatedir=/var --enable-fu
+ 
+ # Declare a list of packages required to download sources/compile them...
+ REQUIREDPACKAGES=(build-essential checkinstall automake automake1.9 git
+-git-core libssl-dev libpam0g-dev zlib1g-dev libtool libtool-bin libx11-dev libxfixes-dev
++libssl-dev libpam0g-dev zlib1g-dev libtool libx11-dev libxfixes-dev
+ pkg-config flex bison libxml2-dev intltool xsltproc xutils-dev python-libxml2
+ g++ xutils libfuse-dev wget libxrandr-dev libdrm-dev libpixman-1-dev
+ x11proto-xf86dri-dev
+@@ -167,15 +167,7 @@ xfonts-utils)
+ DIST=`lsb_release -d -s`
+ 
+ # Check for running on supported/tested Distros...
+-SUPPORTED=false
+-while read i
+-do
+-  if [ "$DIST" = "$i" ]
+-  then
+-    SUPPORTED=true
+-    break
+-  fi
+-done < SupportedDistros.txt
++SUPPORTED=true
+ 
+ INTERACTIVE=true	# Interactive by default.
+ PARALLELMAKE=true	# Utilise all available CPU's for compilation by default.
